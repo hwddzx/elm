@@ -23,24 +23,37 @@
 
 <body>
 
-<div class="w_header" style="background-color: sandybrown;">
+<nav class="navbar navbar-inverse">
     <div class="container">
-        <div class="w_header_top">
-            <a href="#" class="w_logo"></a>
-            <span class="w_header_nav">
-					<ul>
-						<li><a href="" class="active">首页</a></li>
-						<li><a href="">关于</a></li>
-						<li><a href="">成长</a></li>
-						<li><a href="">学习</a></li>
-						<li><a href="">娱乐</a></li>
-						<li><a href="">说说</a></li>
-						<li><a href="">留言</a></li>
-					</ul>
-				</span>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">饿了么商家后台管理系统</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+{#            <ul class="nav navbar-nav">#}
+{#                <li class="active"><a href="#">待办事项</a></li>#}
+{#                <li><a href="">添加事项</a></li>#}
+{#            </ul>#}
+            {% if session.get('user_id') %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="">安全退出</a></li>
+                </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('cms.register') }}">注册</a></li>
+                    <li><a href="{{ url_for('cms.login') }}">登录</a></li>
+                </ul>
+            {% endif %}
         </div>
     </div>
-</div>
+</nav>
 
 {% block content %}
 

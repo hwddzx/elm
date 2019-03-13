@@ -8,8 +8,9 @@ class LoginForm(Form):
         validators=[
             validators.DataRequired(message='请输入用户名'),
             validators.Length(min=3, message='少于3个字符'),
-            validators.Length(min=18, message='超出18个字符'),
+            validators.Length(max=18, message='超出18个字符'),
         ],
+        render_kw={'class': 'form-control', 'placeholder': '请输入用户名'}
     )
 
     password = PasswordField(
@@ -18,7 +19,8 @@ class LoginForm(Form):
             validators.DataRequired(message='请输入密码'),
             validators.Length(min=6, message='少于6个字符'),
             validators.Length(max=18, message='超出18个字符'),
-        ]
+        ],
+        render_kw={'class': 'form-control', 'placeholder': '请输入密码'}
     )
 
 
@@ -29,5 +31,6 @@ class RegisterForm(LoginForm):
         validators=[
             validators.DataRequired(message='请输入密码'),
             validators.EqualTo('password', message='两次密码不一致')
-        ]
+        ],
+        render_kw={'class': 'form-control', 'placeholder': '请确认密码'}
     )

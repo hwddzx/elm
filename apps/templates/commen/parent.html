@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    <link href="{{ url_for('static',filename='bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='common.css') }}"/>
+    <script src="{{ url_for('static',filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap.min.js') }}"></script>
+    <link href="{{ url_for('static',filename='login.css') }}" rel="stylesheet" type="text/css"/>
+    {% block head_js %}
+
+    {% endblock %}
+
+    {% block head_css %}
+
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="w_header" style="background-color: sandybrown;">
+    <div class="container">
+        <div class="w_header_top">
+            <a href="#" class="w_logo"></a>
+            <span class="w_header_nav">
+					<ul>
+						<li><a href="" class="active">首页</a></li>
+						<li><a href="">关于</a></li>
+						<li><a href="">成长</a></li>
+						<li><a href="">学习</a></li>
+						<li><a href="">娱乐</a></li>
+						<li><a href="">说说</a></li>
+						<li><a href="">留言</a></li>
+					</ul>
+				</span>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+{% block footer_js %}
+
+{% endblock %}
+
+</body>
+</html>

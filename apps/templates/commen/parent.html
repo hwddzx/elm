@@ -33,17 +33,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">饿了么商家后台管理系统</a>
+            <a class="navbar-brand" href="{{ url_for('cms.index') }}">饿了么商家后台管理系统</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-{#            <ul class="nav navbar-nav">#}
-{#                <li class="active"><a href="#">待办事项</a></li>#}
-{#                <li><a href="">添加事项</a></li>#}
-{#            </ul>#}
-            {% if session.get('user_id') %}
+            {#            <ul class="nav navbar-nav">#}
+            {#                <li class="active"><a href="#">待办事项</a></li>#}
+            {#                <li><a href="">添加事项</a></li>#}
+            {#            </ul>#}
+            {% if session.get('uid') %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">安全退出</a></li>
+                    <li><a href="">欢迎用户:{{ session.get('uid') }}</a></li>
+                    <li><a href="{{ url_for('cms.logout') }}">安全退出</a></li>
                 </ul>
             {% else %}
                 <ul class="nav navbar-nav navbar-right">

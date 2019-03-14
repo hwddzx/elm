@@ -1,13 +1,13 @@
 {% extends 'commen/parent.html' %}
 
 {% block title %}
-    商家后台登录
+    商家后台{{ flags }}
 {% endblock %}
 
 {% block content %}
     <div class="login_box">
         <div class="login_l_img"><img src="{{ url_for('static',filename='images/login-img.png') }}"/></div>
-        <div class="login" style="height:450px;">
+        <div class="login" style="height:{{ height }}px;">
             <div class="login_logo"><img src="{{ url_for('static',filename='images/login-logo.png') }}"/></a>
             </div>
             <div class="login_name">

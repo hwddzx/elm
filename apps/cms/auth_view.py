@@ -1,3 +1,4 @@
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, request, session, redirect, url_for
 from apps.cms import cms_bp
 from apps.forms.auth_forms import LoginForm, RegisterForm
@@ -20,7 +21,7 @@ def login():
         # 根据账号获取模型对象
         d1 = db.session.query(Auth).filter_by(username=username).first()
         # 判断密码是否正确
-        if password == d1.password:
+        if check_password_hash(d1.password, password):
             # 设置session
             session['uid'] = username
             return redirect(url_for('cms.index'))
@@ -37,12 +38,13 @@ def register():
         try:
             u1 = Auth()
             u1.username = form.username.data
-            u1.password = form.password.data
+            # 密码加盐哈希加密
+            u1.password = generate_password_hash(form.password.data)
             db.session.add(u1)
             db.session.commit()
         except:
             return '用户名已存在'
-        return 'ok'
+        return redirect(url_for('cms.login'))
     return render_template('auth/login.html', form=form, flags='注册', height=450)
 
 

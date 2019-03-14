@@ -43,7 +43,7 @@
             {#            </ul>#}
             {% if session.get('uid') %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">欢迎用户:{{ session.get('uid') }}</a></li>
+                    <li><a href="">欢迎用户：{{ session.get('uid') }}</a></li>
                     <li><a href="{{ url_for('cms.logout') }}">安全退出</a></li>
                 </ul>
             {% else %}

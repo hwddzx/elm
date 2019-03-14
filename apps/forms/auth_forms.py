@@ -1,4 +1,5 @@
 from wtforms import Form, StringField, PasswordField, validators
+from apps.models.auth_model import Auth, db
 
 
 class LoginForm(Form):
@@ -34,3 +35,8 @@ class RegisterForm(LoginForm):
         ],
         render_kw={'class': 'form-control', 'placeholder': '请确认密码'}
     )
+
+    def validate_username(self, field):
+        # 验证用户名是否存在
+        if not db.session.query(Auth).filter_by(username=field.data).all() == []:
+            raise validators.ValidationError(message='用户名已存在')

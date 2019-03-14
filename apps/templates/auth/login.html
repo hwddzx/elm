@@ -16,12 +16,13 @@
             <form action="" method="post" novalidate>
                 {% for item in form %}
                     {{ item }}
-                    <span class="text-danger">{{ item.errors[0] }}</span>
+                    <p class="text-danger">{{ item.errors[0] }}</p>
                 {% endfor %}
+                <p class="text-danger">{{ error }}</p>
                 <input value="{{ flags }}" type="submit">
             </form>
         </div>
     </div>
 
-     <div class="copyright" style="bottom:0;position: fixed">嘟狗科技有限公司 版权所有©2016-2019 技术支持电话：18380433380</div>
+    <div class="copyright" style="bottom:0;position: fixed">嘟狗科技有限公司 版权所有©2016-2019 技术支持电话：18380433380</div>
 {% endblock %}

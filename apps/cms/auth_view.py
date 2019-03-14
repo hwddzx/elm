@@ -14,6 +14,7 @@ def index():
 @cms_bp.route('/login/', methods=['GET', 'POST'])
 def login():
     """登录"""
+    error = ''
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
         username = form.username.data
@@ -25,9 +26,8 @@ def login():
             # 设置session
             session['uid'] = username
             return redirect(url_for('cms.index'))
-        else:
-            return 'not ok'
-    return render_template('auth/login.html', form=form, flags='登录', height=360)
+        error = '用户名或密码错误!'
+    return render_template('auth/login.html', form=form, flags='登录', height=400, error=error)
 
 
 @cms_bp.route('/register/', methods=['POST', 'GET'])
@@ -35,17 +35,14 @@ def register():
     """注册"""
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
-        try:
-            u1 = Auth()
-            u1.username = form.username.data
-            # 密码加盐哈希加密
-            u1.password = generate_password_hash(form.password.data)
-            db.session.add(u1)
-            db.session.commit()
-        except:
-            return '用户名已存在'
+        u1 = Auth()
+        u1.username = form.username.data
+        # 密码加盐哈希加密
+        u1.password = generate_password_hash(form.password.data)
+        db.session.add(u1)
+        db.session.commit()
         return redirect(url_for('cms.login'))
-    return render_template('auth/login.html', form=form, flags='注册', height=450)
+    return render_template('auth/login.html', form=form, flags='注册', height=480)
 
 
 @cms_bp.route('/logout/')

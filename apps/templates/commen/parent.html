@@ -41,9 +41,9 @@
             {#                <li class="active"><a href="#">待办事项</a></li>#}
             {#                <li><a href="">添加事项</a></li>#}
             {#            </ul>#}
-            {% if session.get('uid') %}
+            {% if session.get('user_id') %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">欢迎用户：{{ session.get('uid') }}</a></li>
+                    <li><a href="">欢迎用户：{{ current_user.username }}</a></li>
                     <li><a href="{{ url_for('cms.logout') }}">安全退出</a></li>
                 </ul>
             {% else %}

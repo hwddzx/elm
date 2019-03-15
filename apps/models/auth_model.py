@@ -1,8 +1,9 @@
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from apps.models import BaseModel, db
 
 
-class Auth(BaseModel):
+class Auth(BaseModel, UserMixin):
     username = db.Column(db.String(16), unique=True, index=True)
     _password = db.Column('password', db.String(128), nullable=False)
 

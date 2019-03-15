@@ -19,6 +19,11 @@ def init_session(app: Flask):
     Session(app)
 
 
+def init_login_manager(app: Flask):
+    from apps.tools.login_tools import login_manager
+    login_manager.init_app(app)
+
+
 def create_cms_app(config_str: str):
     # 实例化Flask对象
     app = Flask(__name__)
@@ -28,6 +33,8 @@ def create_cms_app(config_str: str):
     init_session(app)
     # 注册模型
     register_db(app)
+    # 初始化登录manager
+    init_login_manager(app)
     # 注册蓝图
     register_cms_bp(app)
     return app

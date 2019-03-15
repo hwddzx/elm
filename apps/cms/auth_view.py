@@ -1,4 +1,5 @@
 from flask import render_template, request, session, redirect, url_for
+from flask_login import login_user, current_user, logout_user
 from apps.cms import cms_bp
 from apps.forms.auth_forms import LoginForm, RegisterForm
 from apps.models.auth_model import Auth, db
@@ -7,6 +8,8 @@ from apps.models.auth_model import Auth, db
 @cms_bp.route('/', endpoint='index')
 def index():
     """主页"""
+    if current_user.is_authenticated:
+        print(current_user.username)
     return render_template('auth/index.html')
 
 
@@ -21,7 +24,8 @@ def login():
         # 判断密码是否正确
         if u1.check_password(form.password.data):
             # 设置session
-            session['uid'] = form.username.data
+            # session['uid'] = form.username.data
+            login_user(u1)
             return redirect(url_for('cms.index'))
         error = '用户名或密码错误!'
     return render_template('auth/login.html', form=form, flags='登录', height=400, error=error)
@@ -43,5 +47,6 @@ def register():
 @cms_bp.route('/logout/')
 def logout():
     # 删除session
-    session.clear()
+    # session.clear()
+    logout_user()
     return redirect(url_for('cms.login'))

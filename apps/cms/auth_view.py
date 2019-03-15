@@ -1,4 +1,3 @@
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, request, session, redirect, url_for
 from apps.cms import cms_bp
 from apps.forms.auth_forms import LoginForm, RegisterForm
@@ -17,14 +16,12 @@ def login():
     error = ''
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate():
-        username = form.username.data
-        password = form.password.data
         # 根据账号获取模型对象
-        d1 = db.session.query(Auth).filter_by(username=username).first()
+        u1 = Auth.query.filter_by(username=form.username.data).first()
         # 判断密码是否正确
-        if check_password_hash(d1.password, password):
+        if u1.check_password(form.password.data):
             # 设置session
-            session['uid'] = username
+            session['uid'] = form.username.data
             return redirect(url_for('cms.index'))
         error = '用户名或密码错误!'
     return render_template('auth/login.html', form=form, flags='登录', height=400, error=error)
@@ -36,9 +33,7 @@ def register():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         u1 = Auth()
-        u1.username = form.username.data
-        # 密码加盐哈希加密
-        u1.password = generate_password_hash(form.password.data)
+        u1.set_attr(form.data)
         db.session.add(u1)
         db.session.commit()
         return redirect(url_for('cms.login'))

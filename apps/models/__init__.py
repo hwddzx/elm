@@ -11,5 +11,10 @@ class BaseModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_status = db.Column(db.Integer, default=1)
 
+    def set_attr(self, form_data: dict):
+        for k, v in form_data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+
 
 from . import auth_model
